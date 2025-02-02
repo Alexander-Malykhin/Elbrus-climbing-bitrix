@@ -1,0 +1,1 @@
+<img alt="route" src="<?=SITE_TEMPLATE_PATH?>/images/route_img.png" class="program__route">

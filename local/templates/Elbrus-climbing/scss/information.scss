@@ -1,0 +1,162 @@
+@import "./settings/colors";
+@import "./settings/mixins";
+@import "./settings/fonts";
+
+@import "./settings/colors";
+@import "./settings/mixins";
+@import "./settings/fonts";
+
+.information {
+  &__content {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: 1040px;
+    width: 100%;
+    gap: 2px;
+
+    &-button {
+      transform: rotate(180deg);
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: auto;
+      border-bottom: 1px solid rgba($gray, 0.2);
+      border-radius: 2px;
+      padding: 16px 24px;
+      cursor: pointer;
+    }
+
+    &-top {
+      display: grid;
+      grid-template-columns: 1fr 17px;
+      align-items: center;
+    }
+
+    &-title {
+      @include typography($fz_16, $fw_600);
+      color: $gray;
+      text-transform: uppercase;
+    }
+
+
+    &-content {
+      max-width: 950px;
+      width: 100%;
+      display: none;
+    }
+
+    &-text {
+      @include typography($fz_16, $fw_400);
+      line-height: 140%;
+    }
+  }
+
+  &__module {
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-content {
+      padding: 24px 13px ;
+      box-shadow: 0 4px 24px 0 rgba($black, 0.06);
+      border-radius: 2px;
+      max-width: 590px;
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    &-title {
+      @include typography($fz_16, $fw_600);
+      text-transform: uppercase;
+    }
+
+    &-text {
+      @include typography($fz_16, $fw_400);
+      max-width: 554px;
+      width: 100%;
+      text-align: left;
+      line-height: 140%;
+    }
+
+    &-aсcent {
+      color: $main_green;
+    }
+  }
+}
+
+.information__show {
+  display: block;
+}
+
+@media only screen and (max-width: 834px) {
+  .container {
+    @include container(764px);
+  }
+  .main {
+    margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .information {
+
+    &__list {
+      max-width: 100%;
+      gap: 8px;
+
+      &-item {
+        border: none;
+        gap: 16px;
+        border-radius: 2px;
+        padding: 8px 16px;
+        box-shadow: 0 4px 24px 0 rgba($black, 0.06);
+      }
+
+      &-top {
+        display: grid;
+        grid-template-columns: 1fr 17px;
+        align-items: flex-start;
+      }
+
+      &-title {
+        @include typography($fz_16, $fw_600);
+        color: $gray;
+        text-transform: uppercase;
+        max-width: 230px;
+        width: 100%;
+      }
+
+      &-text {
+        @include typography($fz_12, $fw_400);
+      }
+    }
+
+    &__module {
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-content {
+        padding: 24px;
+        width: 100%;
+      }
+    }
+  }
+}
+

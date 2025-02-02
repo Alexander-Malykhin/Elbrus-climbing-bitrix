@@ -1,0 +1,1 @@
+<img src="<?= SITE_TEMPLATE_PATH ?>/images/telegram.png" alt="telegram" class="header__links-item">

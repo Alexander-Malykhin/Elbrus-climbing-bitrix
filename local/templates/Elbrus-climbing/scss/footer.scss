@@ -1,0 +1,187 @@
+@import "./settings/colors";
+@import "./settings/mixins";
+@import "./settings/fonts";
+
+.footer {
+  background-color: $black;
+  padding: 40px 0;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: 46px 47px 22px 38px 30px;
+    grid-template-areas: "footer_logo  footer_rating   footer_local"
+                         ".            footer_rating              ."
+                         ".            footer_rating   footer_selects"
+                         ".            .               ."
+                         "footer_carts footer_policy   footer_links";
+
+    justify-content: space-between;
+  }
+
+  &__logo {
+    grid-area: footer_logo;
+  }
+
+  &__rating {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &-star {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    &-number {
+      @include typography($fz_18, $fw_600);
+      color: $white;
+    }
+
+    &-sum {
+      @include typography($fz_18, $fw_400);
+      color: $gray_footer;
+    }
+  }
+
+  &__carts {
+    grid-area: footer_carts;
+    display: flex;
+    gap: 10px;
+  }
+
+  &__policy {
+    @include typography($fz_16, $fw_500);
+    grid-area: footer_policy;
+    align-self: flex-end;
+    color: $white;
+    opacity: 0.6;
+  }
+
+  &__selects {
+    grid-area: footer_selects;
+    display: flex;
+    align-self: flex-end;
+    gap: 16px;
+  }
+
+  &__select {
+    height: 22px;
+    width: max-content;
+    padding: 3px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 4px;
+    border: 1px solid $white;
+  }
+
+  &__local {
+    @include typography($fz_16, $fw_400);
+    grid-area: footer_local;
+    justify-self: end;
+    max-width: 178px;
+    width: 100%;
+    color: $white;
+    line-height: 140%;
+    text-align: right;
+  }
+
+  &__links {
+    grid-area: footer_links;
+    justify-self: flex-end;
+    display: flex;
+    gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 834px) {
+  .footer {
+    &__content {
+      grid-template-columns: 185px 252px 170px;
+      grid-template-rows: 46px 47px 22px 38px 26px 30px;
+      grid-template-areas: "footer_logo  footer_rating   footer_local"
+                         ".            footer_rating              ."
+                         ".            footer_rating   footer_selects"
+                         ".            .               footer_selects"
+                         ".            .               ."
+                         "footer_carts footer_policy   footer_links";
+
+    }
+
+
+    &__selects {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    &__carts {
+      gap: 5px;
+    }
+
+    &__rating {
+      justify-self: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .footer {
+
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 28px 116px 22px 46px 28px auto;
+      row-gap: 30px;
+      grid-template-areas: "footer_logo footer_local"
+                           "footer_rating footer_rating"
+                           "footer_selects  footer_selects"
+                           "footer_carts  footer_carts"
+                           "footer_links footer_links"
+                           "footer_policy footer_policy";
+    }
+
+    &__logo {
+      grid-area: footer_logo;
+
+      & img {
+        height: 28px;
+      }
+    }
+
+    &__rating {
+      justify-self: flex-start;
+      grid-column: span 2;
+    }
+
+    &__carts {
+      margin-top: 18px;
+    }
+
+    &__selects {
+      justify-self: flex-start;
+      grid-column: span 2;
+    }
+
+    &__links {
+      justify-self: flex-start;
+    }
+
+    &__policy {
+      @include typography($fz_16, $fw_500);
+    }
+
+    &__local {
+      @include typography($fz_12, $fw_400);
+    }
+  }
+}

@@ -1,0 +1,131 @@
+//SETTINGS
+@import "./settings/reset";
+@import "./settings/colors";
+@import "./settings/fonts";
+@import "./settings/mixins";
+@import "./settings/proccess";
+//SECTIONS
+@import "./additionalls";
+@import "./header";
+@import "./menu";
+@import "./program";
+@import "./route";
+@import "./gallery";
+@import "./schedule";
+@import "./price";
+@import "./choice";
+@import "./information";
+@import "./reviews";
+@import "./more";
+@import "./footer";
+
+
+* {
+  font-family: "Inter", sans-serif;
+  color: $black;
+}
+
+
+.panel {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.container {
+  @include container(1290px);
+  padding: 0 5px;
+  margin: 0 auto;
+}
+
+.main {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section {
+  padding: 20px 0;
+}
+
+.section__title {
+  @include typography($fz_24, $fw_600)
+}
+
+.accent {
+  &__main {
+    color: $main_green;
+  }
+  &__primary {
+    color: $gray;
+  }
+  &__select {
+    color: $white;
+    @include typography($fz_12, $fw_400);
+  }
+}
+
+.active {
+  &__column {
+    &-main {
+      background-color: $white;
+    }
+    &-primary {
+      background-color: $gray;
+    }
+  }
+  &__link {
+    color: $black;
+  }
+}
+
+@media only screen and (max-width: 1220px) {
+  .container {
+    @include container(1140px);
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .container {
+    @include container(960px);
+  }
+}
+
+@media only screen and (max-width: 834px) {
+  .container {
+    @include container(754px);
+  }
+  .main {
+    margin-top: 0;
+    gap: 0;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+    @include container(586px);
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    @include container(100%);
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  .section {
+    padding: 0;
+  }
+
+  .main  {
+    gap: 30px;
+  }
+
+  .section__title {
+    text-transform: uppercase;
+    @include typography($fz_16, $fw_600)
+  }
+}
+

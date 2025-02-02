@@ -1,0 +1,150 @@
+@import "./settings/colors";
+@import "./settings/mixins";
+@import "./settings/fonts";
+
+.schedule {
+  margin-top: 52px;
+
+  &__content {
+
+    &-top {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 1040px;
+      width: 100%;
+    }
+  }
+
+  &__mobile-list {
+    display: none;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: 1040px;
+    width: 100%;
+    gap: 2px;
+
+    &-item {
+      display: grid;
+      grid-template-columns: 100px 1fr 17px;
+      height: auto;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1px solid rgba($gray, 0.2);
+      border-radius: 2px;
+      gap: 16px;
+      padding: 16px 24px;
+      cursor: pointer;
+    }
+
+    &-title {
+      @include typography($fz_16, $fw_600);
+    }
+
+    &-text {
+      display: none;
+      @include typography($fz_16, $fw_400);
+      line-height: 140%;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &-day {
+      @include typography($fz_16, $fw_400);
+      color: $gray;
+    }
+  }
+
+  &__button {
+    &-list {
+      align-self: flex-end;
+      @include typography($fz_16, $fw_400);
+      color: $gray;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include typography($fz_16, $fw_400);
+      color: $gray;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .schedule {
+    margin-top: 0;
+
+    &__list {
+      display: none;
+    }
+
+    &__mobile {
+      margin-top: 16px;
+
+      &-hidden {
+        overflow: hidden;
+      }
+
+      &-list {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(100%, 1fr);
+        transition: transform 0.5s ease-in-out;
+      }
+
+      &-item {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        padding: 8px 16px 16px 16px;
+        gap: 16px;
+        width: 100%;
+      }
+
+      &-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      &-container {
+        width: 100%;
+      }
+
+      &-title {
+        text-align: left;
+        max-width: 100%;
+        @include typography($fz_16, $fw_600);
+      }
+
+      &-span {
+        color: $gray;
+      }
+
+      &-text {
+        @include typography($fz_12, $fw_400);
+      }
+    }
+
+    &__button {
+      &-list {
+        display: none;
+      }
+    }
+  }
+}
+
+
