@@ -1,3 +1,7 @@
-<?
-$MESS["CT_BNL_ELEMENT_DELETE_CONFIRM"] = "All the information linked to this record will be deleted. Continue anyway?";
-?>
+<?php
+$MESS["LEVEL_LENGHT"] = "Length";
+$MESS["LEVEL_DAYS"] = "days";
+$MESS["LEVEL_DURATION"] = "Duration";
+$MESS["LEVEL_COUNT"] = "Level";
+$MESS["LEVEL_KM"] = "km";
+$MESS["LEVEL_COMFORT"] = "Comfort";

@@ -124,9 +124,16 @@
     }
 
     &-language {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-left: 1px solid $black;
+      border-bottom: 1px solid $black;
+      transform-origin: center;
+      transform: rotate(-45deg);
+      margin-bottom: 5px;
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
     }
 
     &-list {
@@ -147,6 +154,11 @@
         max-width: 100%;
         background-color: rgba($main_green, 0.2);
       }
+    }
+
+    &-active {
+      display: flex;
+      width: 100%;
     }
 
     &-show {

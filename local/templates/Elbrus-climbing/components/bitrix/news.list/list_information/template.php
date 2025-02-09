@@ -9,7 +9,7 @@ $this->setFrameMode(true);
             <article class="information__list-item">
                 <div class="information__list-top">
                     <h3 class="information__list-title">
-                        <?= $arItem["PROPERTIES"]["TITLE"]["VALUE"] ?>
+                        <?= $arItem["PROPERTIES"]["TITLE_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
                     </h3>
 
                     <button class="information__button-item">
@@ -18,7 +18,7 @@ $this->setFrameMode(true);
                 </div>
 
                 <ul class="information__list-content">
-                    <?php foreach ($arItem["PROPERTIES"]["TEXT"]["VALUE"] as $arElement): ?>
+                    <?php foreach ($arItem["PROPERTIES"]["TEXT_" . strtoupper(LANGUAGE_ID)]["VALUE"] as $arElement): ?>
                         <li class="information__list-text"><?= $arElement ?></li>
                     <?php endforeach; ?>
                 </ul>

@@ -1,6 +1,9 @@
-<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+<?php global $APPLICATION;
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arResult */
 $this->setFrameMode(true);
+
+IncludeModuleLangFile(__FILE__);
 ?>
 
 <?php if (!empty($arResult)): ?>
@@ -10,19 +13,27 @@ $this->setFrameMode(true);
             foreach ($arResult as $arItem):?>
                 <li>
                     <a href="<?= $arItem["LINK"] ?>" class="program__list-link active__link">
-                        <?= $arItem["TEXT"] ?>
+                        <?= GetMessage($arItem["TEXT"]) ?>
                     </a>
                 </li>
             <?php endforeach ?>
         </ul>
 
+        <?php $APPLICATION->IncludeComponent(
+            "custom:program.race",
+            ".default",
+            array(
+                "IBLOCK_ID" => "42",
+                "IBLOCK_TYPE" => "section_race",
+                "CACHE_KEY" => LANGUAGE_ID
+            ),
+            false
+        ); ?>
 
-        <p class="program__text">
-            18.08.2022 и <span class="accent__main">ещё 27 заездов</span> — от 78 000 ₽
-        </p>
-
-        <button class="program__button">
-            Забронировать
+        <button class="program__button" id="secondary-btn">
+            <?= GetMessage("Забронировать") ?>
         </button>
     </nav>
 <?php endif ?>
+
+<script src="<?=$this->GetFolder();?>/script.js"></script>

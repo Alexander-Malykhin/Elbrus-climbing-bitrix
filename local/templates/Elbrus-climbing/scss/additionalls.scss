@@ -3,11 +3,10 @@
 @import "./settings/fonts";
 
 
-
 .select {
   height: 22px;
   width: 68px;
-  padding: 3px 15px;
+  position: relative;
 
   display: flex;
   align-items: center;
@@ -18,12 +17,21 @@
 
   &__content {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 4px;
+    align-items: center;
+    gap: 8px;
   }
 
   &__arrow {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-left: 1px solid $white;
+    border-bottom: 1px solid $white;
+    transform-origin: center;
+    transform: rotate(-45deg);
+    margin-bottom: 5px;
+    transition: transform 0.3s ease-in-out;
     cursor: pointer;
   }
 
@@ -31,6 +39,172 @@
     @include typography($fz_12, $fw_400);
     text-transform: uppercase;
     color: $white;
+  }
+
+  &__list {
+    width: 100%;
+    background-color: $white;
+    transform: translateY(40px);
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+    &-active {
+      display: flex;
+      max-height: 200px;
+      opacity: 1;
+    }
+
+
+    &-item {
+      @include typography($fz_12, $fw_400);
+      cursor: pointer;
+      text-transform: uppercase;
+      color: $black;
+      padding: 5px 0;
+
+      &:hover {
+        max-width: 100%;
+        height: auto;
+        background-color: rgba($main_green, 0.2);
+      }
+    }
+  }
+}
+
+.aside {
+  border-radius: 4px;
+  border: 1px solid $black;
+  padding: 3px 12px;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__text {
+    @include typography($fz_12, $fw_400);
+    text-transform: uppercase;
+  }
+
+  &__arrow {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-left: 1px solid $black;
+    border-bottom: 1px solid $black;
+    transform-origin: center;
+    transform: rotate(-45deg);
+    margin-bottom: 5px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  &__list {
+    width: 100%;
+    background-color: $white;
+    transform: translateY(40px);
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+    &-active {
+      display: flex;
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    &-item {
+      @include typography($fz_12, $fw_400);
+      cursor: pointer;
+      text-transform: uppercase;
+      color: $black;
+      padding: 5px 0;
+
+      &:hover {
+        max-width: 100%;
+        height: auto;
+        background-color: rgba($main_green, 0.2);
+      }
+    }
+  }
+}
+
+.language {
+  width: 22px;
+  height: 22px;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 4px;
+  border: 1px solid $white;
+
+  &__text {
+    cursor: pointer;
+    @include typography($fz_12, $fw_400);
+    text-transform: uppercase;
+    color: $white;
+  }
+
+  &__list {
+    width: 100%;
+    background-color: $white;
+    transform: translateY(40px);
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+    &-active {
+      display: flex;
+      max-height: 200px;
+      opacity: 1;
+    }
+
+
+    &-item {
+      @include typography($fz_12, $fw_400);
+      cursor: pointer;
+      text-transform: uppercase;
+      color: $black;
+      padding: 5px 0;
+
+      &:hover {
+        max-width: 100%;
+        height: auto;
+        background-color: rgba($main_green, 0.2);
+      }
+    }
   }
 }
 
@@ -57,6 +231,89 @@
 
 .burger {
   display: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease-in-out;
+
+  &__content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+  }
+
+  &__show {
+    z-index: 99;
+    display: flex;
+    opacity: 1;
+  }
+}
+
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid $main_green;
+  border-top: 5px solid $white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.success-message {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.checkmark {
+  width: 52px;
+  height: 52px;
+
+  &__circle {
+    stroke: $main_green;
+    stroke-width: 5;
+    stroke-dasharray: 157;
+    stroke-dashoffset: 157;
+    stroke-linecap: round;
+    animation: circle-appear 0.4s ease-in-out forwards;
+  }
+
+  &__check {
+    stroke: $main_green;
+    stroke-width: 5;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    stroke-linecap: round;
+    animation: check-appear 0.4s ease-in-out 0.3s forwards;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+@keyframes circle-appear {
+  0% { stroke-dashoffset: 157; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes check-appear {
+  0% { stroke-dashoffset: 50; }
+  100% { stroke-dashoffset: 0; }
 }
 
 @media only screen and (max-width: 834px) {

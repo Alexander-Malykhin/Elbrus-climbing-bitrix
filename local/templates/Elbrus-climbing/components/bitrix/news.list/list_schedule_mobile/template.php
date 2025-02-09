@@ -1,6 +1,7 @@
 <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arResult */
 $this->setFrameMode(true);
+IncludeModuleLangFile(__FILE__);
 ?>
 
 <?php if (!empty($arResult)): ?>
@@ -14,8 +15,8 @@ $this->setFrameMode(true);
 
                     <div class="schedule__mobile-container">
                         <h3 class="schedule__mobile-title">
-                            <span class="accent__primary"><?= $arItem["PROPERTIES"]["DAY"]["VALUE"] ?> день.</span>
-                            <?= $arItem["PROPERTIES"]["NAME"]["VALUE"] ?>
+                            <span class="accent__primary"><?= $arItem["PROPERTIES"]["DAY"]["VALUE"] ?> <?= GetMessage('DAY') ?>.</span>
+                            <?= $arItem["PROPERTIES"]["NAME_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
                         </h3>
                     </div>
 
@@ -25,7 +26,7 @@ $this->setFrameMode(true);
                 </div>
 
                 <p class="schedule__mobile-text">
-                    <?= $arItem["PROPERTIES"]["DESCRIPTION_BY_DAYS"]["VALUE"] ?>
+                    <?= $arItem["PROPERTIES"]["DESCRIPTION_BY_DAYS_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
                 </p>
             </article>
         <?php endforeach; ?>

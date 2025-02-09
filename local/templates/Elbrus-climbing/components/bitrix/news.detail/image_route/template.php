@@ -3,4 +3,6 @@
 $this->setFrameMode(true);
 ?>
 
-<img src="<?= CFile::GetPath($arResult['PROPERTIES']['IMAGE']['VALUE'])?>" class="route__image">
+<?php if (!empty($arResult)): ?>
+    <img src="<?= CFile::GetPath($arResult['PROPERTIES']['IMAGE']['VALUE']) ?>" class="route__image">
+<?php endif; ?>

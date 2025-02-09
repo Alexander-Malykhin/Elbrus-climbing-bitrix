@@ -2,7 +2,9 @@
 global $APPLICATION;
 
 use Bitrix\Main\Page\Asset;
+use Bitrix\Main\Localization\Loc;
 
+Loc::loadMessages(__FILE__);
 ?>
 <!doctype html>
 <html lang="<?= LANGUAGE_ID ?>">
@@ -11,6 +13,7 @@ use Bitrix\Main\Page\Asset;
     <?php Asset::getInstance()->addString('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">') ?>
     <?php Asset::getInstance()->addString('<meta http-equiv="X-UA-Compatible" content="ie=edge">') ?>
     <?php Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/scss/index.css") ?>
+    <?php Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/main.js") ?>
     <?php $APPLICATION->ShowHead(); ?>
     <link rel="shortcut icon" href="<?= SITE_TEMPLATE_PATH ?>/images/logo.svg" type="image/x-icon">
     <title>Elbrus Climbing</title>
@@ -28,12 +31,12 @@ use Bitrix\Main\Page\Asset;
             "header_video",
             array(
                 "IBLOCK_TYPE" => "header",
-                "IBLOCK_ID" => "484",
+                "IBLOCK_ID" => "27",
                 "PROPERTY_CODE" => array("LINK_VIDEO"),
                 "CACHE_TYPE" => "A",
                 "CACHE_TIME" => "3600",
                 "COMPONENT_TEMPLATE" => "header_video",
-                "ELEMENT_ID" => "220",
+                "ELEMENT_ID" => "47",
             ),
             false
         ); ?>
@@ -52,16 +55,16 @@ use Bitrix\Main\Page\Asset;
                 </div>
 
                 <?php $APPLICATION->IncludeComponent("bitrix:menu", "main_menu", array(
-                    "ROOT_MENU_TYPE" => "top",    // Тип меню для первого уровня
-                    "MENU_CACHE_TYPE" => "A",    // Тип кеширования
-                    "MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
-                    "MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
-                    "MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
-                    "MAX_LEVEL" => "2",    // Уровень вложенности меню
-                    "CHILD_MENU_TYPE" => "left",    // Тип меню для остальных уровней
-                    "USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
-                    "DELAY" => "N",    // Откладывать выполнение шаблона меню
-                    "ALLOW_MULTI_SELECT" => "N",    // Разрешить несколько активных пунктов одновременно
+                    "ROOT_MENU_TYPE" => "top",
+                    "MENU_CACHE_TYPE" => "A",
+                    "MENU_CACHE_TIME" => "3600",
+                    "MENU_CACHE_USE_GROUPS" => "Y",
+                    "MENU_CACHE_GET_VARS" => "",
+                    "MAX_LEVEL" => "2",
+                    "CHILD_MENU_TYPE" => "left",
+                    "USE_EXT" => "Y",
+                    "DELAY" => "N",
+                    "ALLOW_MULTI_SELECT" => "N",
                 ),
                     false
                 ); ?>
@@ -76,15 +79,14 @@ use Bitrix\Main\Page\Asset;
                         <span class="bell__sum">2</span>
                     </div>
 
-                    <div class="select">
-                        <div class="select__content">
-                            <span class="select__text">usd</span>
-                            <img src="<?= SITE_TEMPLATE_PATH ?>/images/select-arrow.png" alt="arrow-select"
-                                 class="select__arrow">
-                        </div>
-                    </div>
 
-                    <p class="header__language">en</p>
+                    <?php $APPLICATION->IncludeComponent("custom:header.switcher.currency", "", []); ?>
+
+                    <?php
+                    $APPLICATION->IncludeComponent("custom:lang.switcher",
+                        "default",
+                        []);
+                    ?>
 
                     <a href="#" class="header__user">
                         <img src="<?= SITE_TEMPLATE_PATH ?>/images/user.png" alt="user">
@@ -102,13 +104,13 @@ use Bitrix\Main\Page\Asset;
                         "bitrix:news.list",
                         "list_tour",
                         array(
-                            "IBLOCK_ID" => "232",
+                            "IBLOCK_ID" => "30",
                             "IBLOCK_TYPE" => "header",
                             "NEWS_COUNT" => "3",
                             "PROPERTY_CODE" => array(
-                                "REGION",
-                                "COUNTRY",
-                                "ACTIVITY_TYPE",
+                                "REGION_" . strtoupper(LANGUAGE_ID),
+                                "COUNTRY_" . strtoupper(LANGUAGE_ID),
+                                "ACTIVITY_TYPE_" . strtoupper(LANGUAGE_ID),
                             ),
                             "CACHE_TIME" => "3600",
                         ),
@@ -119,13 +121,13 @@ use Bitrix\Main\Page\Asset;
                         "bitrix:news.detail",
                         "header_title",
                         array(
-                            "IBLOCK_ID" => "231",
+                            "IBLOCK_ID" => "29",
                             "IBLOCK_TYPE" => "header",
-                            "IBLOCK_URL" => "",
-                            "PROPERTY_CODE" => array("TITLE"),
+                            "PROPERTY_CODE" => array("TITLE_" . strtoupper(LANGUAGE_ID)),
                             "CACHE_TIME" => "3600",
                             "CACHE_TYPE" => "A",
-                            "ELEMENT_ID" => "145",
+                            "ELEMENT_ID" => "55",
+                            "CACHE_KEY" => LANGUAGE_ID
                         ),
                         false
                     ); ?>
@@ -142,25 +144,24 @@ use Bitrix\Main\Page\Asset;
 
                 <div class="header__links">
                     <p class="header__links-text">
-                        Мы на связи:
+                        <?= GetMessage("LINKS") ?>:
                     </p>
 
                     <div class="header__links-list">
-                        <?php $APPLICATION->IncludeFile(
-                            SITE_TEMPLATE_PATH . '/include/header/whatsapp.php',
-                            array(),
-                            array("MODE" => "TEXT", "NAME" => "whatsapp")
-                        ) ?>
-                        <?php $APPLICATION->IncludeFile(
-                            SITE_TEMPLATE_PATH . '/include/header/telegram.php',
-                            array(),
-                            array("MODE" => "TEXT", "NAME" => "telegram")
-                        ) ?>
-                        <?php $APPLICATION->IncludeFile(
-                            SITE_TEMPLATE_PATH . '/include/header/vk_header.php',
-                            array(),
-                            array("MODE" => "TEXT", "NAME" => "vk")
-                        ) ?>
+                        <?php $APPLICATION->IncludeComponent(
+                            "bitrix:news.list",
+                            "list_header_links",
+                            array(
+                                "IBLOCK_TYPE" => "header",
+                                "IBLOCK_ID" => "32",
+                                "PROPERTY_CODE" => array(
+                                    "LINK", "IMAGE"
+                                ),
+                                "CACHE_TYPE" => "A",
+                                "CACHE_TIME" => "3600",
+                            ),
+                            false
+                        ); ?>
                     </div>
                 </div>
             </div>
@@ -170,7 +171,7 @@ use Bitrix\Main\Page\Asset;
                 "list_video_slider",
                 array(
                     "IBLOCK_TYPE" => "header",
-                    "IBLOCK_ID" => "230",
+                    "IBLOCK_ID" => "28",
                     "PROPERTY_CODE" => array(
                         "LINK_VIDEO",
                     ),
@@ -185,7 +186,7 @@ use Bitrix\Main\Page\Asset;
                 <?php $APPLICATION->IncludeComponent("bitrix:news.list", "level_route", array(
                     "CACHE_TIME" => "3600",
                     "CACHE_TYPE" => "A",
-                    "IBLOCK_ID" => "233",
+                    "IBLOCK_ID" => "31",
                     "IBLOCK_TYPE" => "header",
                     "PROPERTY_CODE" => array(
                         "COMFORT_COUNT",
@@ -196,13 +197,14 @@ use Bitrix\Main\Page\Asset;
                 ),
                     false
                 ); ?>
+                <!--HEADER__DESCRIPTION-MOBILE-->
                 <div class="header__description-mobile">
                     <?php $APPLICATION->IncludeComponent("bitrix:news.list", "list_description_mobile", array(
                         "CACHE_TIME" => "3600",
                         "CACHE_TYPE" => "A",
                         "CHECK_DATES" => "Y",
-                        "IBLOCK_ID" => "8",
-                        "IBLOCK_TYPE" => "level_route",
+                        "IBLOCK_ID" => "31",
+                        "IBLOCK_TYPE" => "header",
                         "PROPERTY_CODE" => array(
                             "COMFORT_COUNT",
                             "LENGHT_TOUR",
@@ -214,12 +216,9 @@ use Bitrix\Main\Page\Asset;
                     );
                     ?>
 
-                    <p class="header__description-order"><span class="accent__main">27 заездов</span> и под
-                        заказ — от 78 000 ₽</p>
-
                     <div class="header__description-bottom">
-                        <button class="header__description-button">
-                            Забронировать
+                        <button class="header__description-button" id="main-btn">
+                            <?= GetMessage("BUTTON_RESERVE") ?>
                         </button>
 
                         <button class="header__description-chat">
@@ -228,11 +227,19 @@ use Bitrix\Main\Page\Asset;
                     </div>
                 </div>
 
-                <p class="header__text">18.08.2022, <span class="accent__main">ещё 27 заездов</span> и
-                    <span class="accent__main"> под заказ</span> — от 78 000₽</p>
+                <?php $APPLICATION->IncludeComponent(
+                    "custom:header.race",
+                    ".default",
+                    array(
+                        "IBLOCK_ID" => "42",
+                        "IBLOCK_TYPE" => "section_race",
+                        "CACHE_KEY" => LANGUAGE_ID
+                    ),
+                    false
+                ); ?>
 
-                <button class="header__button">
-                    Забронировать
+                <button class="header__button" id="booking-btn">
+                    <?= GetMessage("BUTTON_RESERVE") ?>
                 </button>
             </div>
         </div>

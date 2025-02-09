@@ -1,4 +1,6 @@
-<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
+<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+IncludeModuleLangFile(__FILE__);
+?>
 
 <?php if (!empty($arResult)): ?>
     <nav class="navigation">
@@ -7,7 +9,7 @@
             foreach ($arResult as $arItem):?>
                 <li>
                     <a href="<?= $arItem["LINK"] ?>" class="navigation__list-item">
-                        <?= $arItem["TEXT"] ?>
+                        <?= GetMessage($arItem["TEXT"]) ?>
                     </a>
                 </li>
             <?php endforeach ?>
@@ -18,7 +20,7 @@
         </a>
 
         <button class="navigation__phone-button accent__main">
-            Заказать звонок
+            <?=GetMessage("BUTTON_ORDER")?>
         </button>
     </nav>
 <?php endif ?>

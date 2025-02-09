@@ -1,3 +1,5 @@
-<?
-$MESS["CT_BNL_ELEMENT_DELETE_CONFIRM"] = "Будет удалена вся информация, связанная с этой записью. Продолжить?";
-?>
+<?php
+$MESS["LEVEL_DAYS"] = "дней";
+$MESS["LEVEL_COUNT"] = "Сложность";
+$MESS["LEVEL_KM"] = "км";
+$MESS["LEVEL_COMFORT"] = "Комфорт";

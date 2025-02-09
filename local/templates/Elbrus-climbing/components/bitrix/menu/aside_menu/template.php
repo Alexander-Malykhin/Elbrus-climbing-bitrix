@@ -1,4 +1,7 @@
-<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
+<?php global $APPLICATION;
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+IncludeModuleLangFile(__FILE__);
+?>
 
 <?php if (!empty($arResult)): ?>
     <div class="menu">
@@ -10,63 +13,42 @@
                 </button>
 
                 <div class="menu__selects">
-                    <div class="menu__select">
-                        <div class="menu__select-content">
-                            <span class="menu__select-text field__currency">usd</span>
-                            <button class="menu__select-currency">
-                                <img src="<?= SITE_TEMPLATE_PATH ?>/images/arrow_black-down.png" alt="arrow-down"
-                                     class="header__select-arrow">
-                            </button>
-                        </div>
+                    <?php $APPLICATION->IncludeComponent("custom:aside.switcher.currency", "", []); ?>
 
-                        <ul class="menu__select-list currency__list">
-                            <li class="menu__select-item"><span class="menu__select-text">RUB</span></li>
-                            <li class="menu__select-item"><span class="menu__select-text">USD</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="menu__select">
-                        <div class="menu__select-content">
-                            <span class="menu__select-text field__language">RU</span>
-                            <button class="menu__select-language">
-                                <img src="<?= SITE_TEMPLATE_PATH ?>/images/arrow_black-down.png" alt="arrow-down"
-                                     class="header__select-arrow">
-                            </button>
-                        </div>
-
-                        <ul class="menu__select-list language__list">
-                            <li class="menu__select-item"><span class="menu__select-text">RU</span></li>
-                            <li class="menu__select-item"><span class="menu__select-text">EN</span></li>
-                        </ul>
-                    </div>
+                    <?php
+                    $APPLICATION->IncludeComponent("custom:lang.switcher.aside",
+                        "default",
+                        []);
+                    ?>
                 </div>
 
                 <nav class="menu__list">
                     <?php foreach ($arResult as $arItem): ?>
                         <a href="<?= $arItem["LINK"] ?>">
                         <span class="menu__text menu__list-item">
-                            <?= $arItem["TEXT"] ?>
+                            <?= GetMessage($arItem["TEXT"]) ?>
                         </span>
                         </a>
                     <?php endforeach; ?>
                 </nav>
 
-                <div class="menu__links">
-                    <span class="menu__text">Мы на связи:</span>
-
-                    <div class="menu__links-list">
-                        <img src="<?= SITE_TEMPLATE_PATH ?>/images/whatsapp.png" alt="whatsapp"
-                             class="header__links-item">
-                        <img src="<?= SITE_TEMPLATE_PATH ?>/images/telegram.png" alt="telegram"
-                             class="header__links-item">
-                        <img src="<?= SITE_TEMPLATE_PATH ?>/images/vk.png" alt="vk" class="header__links-item">
-                    </div>
-
-                    <a href="tel:+74951087465" class="menu__phone menu__text">+7 495 108 74 65</a>
-                </div>
+                <?php $APPLICATION->IncludeComponent(
+                    "bitrix:news.list",
+                    "list_aside_links",
+                    array(
+                        "IBLOCK_TYPE" => "header",
+                        "IBLOCK_ID" => "32",
+                        "PROPERTY_CODE" => array(
+                            "LINK", "IMAGE"
+                        ),
+                        "CACHE_TYPE" => "A",
+                        "CACHE_TIME" => "3600",
+                    ),
+                    false
+                ); ?>
             </div>
         </nav>
     </div>
 <?php endif ?>
 
-<script src="<?=$this->GetFolder(); ?>/script.js" defer></script>
+<script src="<?= $this->GetFolder(); ?>/script.js" defer></script>

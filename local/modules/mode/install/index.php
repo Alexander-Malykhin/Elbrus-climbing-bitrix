@@ -35,7 +35,6 @@ class mode extends CModule
         $this->AddBlockTypes();
         $this->AddBlocks();
         $this->AddPropertiesIB();
-        $this->InstallFiles();
 
         ModuleManager::registerModule($this->MODULE_ID);
 
@@ -53,7 +52,6 @@ class mode extends CModule
 
         global $APPLICATION;
         $this->RemoveBlockTypes();
-        $this->UnInstallFiles();
 
         ModuleManager::unRegisterModule($this->MODULE_ID);
 
@@ -249,6 +247,26 @@ class mode extends CModule
             ],
         ];
         $iblockType->Add($arFieldMore);
+        //FOOTER
+        $arFieldFooter = [
+            "ID" => "footer",
+            'SECTIONS' => 'N',
+            'IN_RSS' => 'N',
+            'SORT' => 100,
+            'LANG' => [
+                'ru' => [
+                    'NAME' => 'Подвал сайта',
+                    'SECTION_NAME' => 'Разделы',
+                    'ELEMENT_NAME' => 'Элементы',
+                ],
+                'en' => [
+                    'NAME' => 'Footer',
+                    'SECTION_NAME' => 'Sections',
+                    'ELEMENT_NAME' => 'Elements',
+                ],
+            ],
+        ];
+        $iblockType->Add($arFieldFooter);
     }
 
 //УДАЛЕНИЕ ТИПА ИНФОБЛОКА
@@ -275,6 +293,8 @@ class mode extends CModule
         $iblockType->Delete("section_race");
         //MORE
         $iblockType->Delete("section_more");
+        //FOOTER
+        $iblockType->Delete("footer");
     }
 
 //УСТАНОВКА ИНФОБЛОКА
@@ -308,6 +328,11 @@ class mode extends CModule
                 'NAME' => 'Сложность маршрута',
                 'TYPE' => 'header',
                 "NUMBER" => "5",
+            ],
+            [
+                'NAME' => 'Ссылки на социальные сети',
+                'TYPE' => 'header',
+                "NUMBER" => "22",
             ],
             //TYPE SECTION_PROGRAM
             [
@@ -377,6 +402,27 @@ class mode extends CModule
                 'TYPE' => 'section_more',
                 "NUMBER" => "17",
             ],
+            //TYPE FOOTER
+            [
+                'NAME' => 'Адрес',
+                'TYPE' => 'footer',
+                "NUMBER" => "18",
+            ],
+            [
+                'NAME' => 'Список платежных систем',
+                'TYPE' => 'footer',
+                "NUMBER" => "19",
+            ],
+            [
+                'NAME' => 'Социальные сети',
+                'TYPE' => 'footer',
+                "NUMBER" => "20",
+            ],
+            [
+                'NAME' => 'Метрика',
+                'TYPE' => 'footer',
+                "NUMBER" => "21",
+            ],
         ];
 
         foreach ($iblocksData as $iblockData) {
@@ -394,7 +440,7 @@ class mode extends CModule
         }
     }
 
-//УСТАНОВКА СВОЙСТВ ИНФОБЛОКА
+    //УСТАНОВКА СВОЙСТВ ИНФОБЛОКА
     private function getIblockIdByCode($iblockCode)
     {
         $iblock = CIBlock::GetList([], ['CODE' => $iblockCode])->Fetch();
@@ -442,10 +488,18 @@ class mode extends CModule
         //ПОЛНОЕ НАЗВАНИЕ МАРШРУТА
         $propertiesMainTitle = [
             [
-                "NAME" => "ПОЛНОЕ НАЗВАНИЕ МАРШРУТА",
+                "NAME" => "ПОЛНОЕ НАЗВАНИЕ МАРШРУТА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "TITLE",
+                "CODE" => "TITLE_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("3"),
+            ],
+            [
+                "NAME" => "ПОЛНОЕ НАЗВАНИЕ МАРШРУТА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TITLE_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("3"),
             ]
@@ -459,26 +513,50 @@ class mode extends CModule
         //ОПИСАНИЕ МАРШРУТА
         $propertiesDescriptionRoute = [
             [
-                "NAME" => "СТРАНА ТУРА",
+                "NAME" => "СТРАНА ТУРА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "COUNTRY",
+                "CODE" => "COUNTRY_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("4"),
             ],
             [
-                "NAME" => "РЕГИОН",
+                "NAME" => "СТРАНА ТУРА EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "REGION",
+                "CODE" => "COUNTRY_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("4"),
             ],
             [
-                "NAME" => "ТИП АКТИВНОСТИ",
+                "NAME" => "РЕГИОН RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "ACTIVITY_TYPE",
+                "CODE" => "REGION_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("4"),
+            ],
+            [
+                "NAME" => "РЕГИОН_EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "REGION_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("4"),
+            ],
+            [
+                "NAME" => "ТИП АКТИВНОСТИ RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "ACTIVITY_TYPE_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("4"),
+            ],
+            [
+                "NAME" => "ТИП АКТИВНОСТИ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "ACTIVITY_TYPE_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("4"),
             ]
@@ -541,29 +619,78 @@ class mode extends CModule
             $iblockProperty->Add($property);
         }
 
+        //ССЫЛКИ НА СОЦИЛЬАНЫЕ СЕТИ
+        $propertiesMainTitle = [
+            [
+                "NAME" => "ССЫЛКА НА СОЦИАЛЬНУЮ СЕТЬ",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "LINK",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("22"),
+            ],
+            [
+                "NAME" => "КАРТИНКА СОЦИАЛЬНОЙ СЕТИ",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "IMAGE",
+                "PROPERTY_TYPE" => "F",
+                "IBLOCK_ID" => $this->getIblockIdByCode("22"),
+            ]
+        ];
+
+        foreach ($propertiesMainTitle as $property) {
+            $iblockProperty = new CIBlockProperty;
+            $iblockProperty->Add($property);
+        }
+
         //ОПИСАНИЕ ПРОГРАММЫ
         $propertiesDescriptionProgram = [
             [
-                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ",
+                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "PROGRAM_TEXT",
+                "CODE" => "PROGRAM_TEXT_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("6"),
             ],
             [
-                "NAME" => "СТАРТ ПУТЕШЕСТВИЯ",
+                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "START_TRAVEL",
+                "CODE" => "PROGRAM_TEXT_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("6"),
             ],
             [
-                "NAME" => "ФИНИШ",
+                "NAME" => "СТАРТ ПУТЕШЕСТВИЯ RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "END_TRAVEL",
+                "CODE" => "START_TRAVEL_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("6"),
+            ],
+            [
+                "NAME" => "СТАРТ ПУТЕШЕСТВИЯ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "START_TRAVEL_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("6"),
+            ],
+            [
+                "NAME" => "ФИНИШ RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "END_TRAVEL_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("6"),
+            ],
+            [
+                "NAME" => "ФИНИШ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "END_TRAVEL_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("6"),
             ]
@@ -590,18 +717,34 @@ class mode extends CModule
                 ]
             ],
             [
-                "NAME" => "ГДЕ ПЛАНИРУЕТСЯ ПРОЖИВАНИЕ",
+                "NAME" => "ГДЕ ПЛАНИРУЕТСЯ ПРОЖИВАНИЕ RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "ACCOMMODATION",
+                "CODE" => "ACCOMMODATION_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("7"),
             ],
             [
-                "NAME" => "ПИТАНИЕ",
+                "NAME" => "ГДЕ ПЛАНИРУЕТСЯ ПРОЖИВАНИЕ EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NUTRITION",
+                "CODE" => "ACCOMMODATION_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("7"),
+            ],
+            [
+                "NAME" => "ПИТАНИЕ RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NUTRITION_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("7"),
+            ],
+            [
+                "NAME" => "ПИТАНИЕ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NUTRITION_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("7"),
             ]
@@ -615,10 +758,18 @@ class mode extends CModule
         //О МОРШРУТЕ
         $propertiesRoute = [
             [
-                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ",
+                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "PROGRAM_TEXT",
+                "CODE" => "PROGRAM_TEXT_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("8"),
+            ],
+            [
+                "NAME" => "КОРОТКОЕ ТЕКСТОВОЕ ОПИСАНИЕ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "PROGRAM_TEXT_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("8"),
             ]
@@ -674,18 +825,34 @@ class mode extends CModule
                 "IBLOCK_ID" => $this->getIblockIdByCode("11"),
             ],
             [
-                "NAME" => "ЗАГОЛОВОК",
+                "NAME" => "ЗАГОЛОВОК RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NAME",
+                "CODE" => "NAME_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("11"),
             ],
             [
-                "NAME" => "ОПИСАНИЕ ПО ДНЯМ",
+                "NAME" => "ЗАГОЛОВОК EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "DESCRIPTION_BY_DAYS",
+                "CODE" => "NAME_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("11"),
+            ],
+            [
+                "NAME" => "ОПИСАНИЕ ПО ДНЯМ RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCRIPTION_BY_DAYS_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("11"),
+            ],
+            [
+                "NAME" => "ОПИСАНИЕ ПО ДНЯМ EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCRIPTION_BY_DAYS_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("11"),
             ]
@@ -699,10 +866,18 @@ class mode extends CModule
         //В СТОИМОСТЬ ВКЛЮЧЕНО
         $propertiesDescriptionInclude = [
             [
-                "NAME" => "ТЕКСТ СПИСКА",
+                "NAME" => "ТЕКСТ СПИСКА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "TEXT",
+                "CODE" => "TEXT_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("12"),
+            ],
+            [
+                "NAME" => "ТЕКСТ СПИСКА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TEXT_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("12"),
             ],
@@ -716,10 +891,18 @@ class mode extends CModule
         //В СТОИМОСТЬ НЕ ВКЛЮЧЕНО
         $propertiesDescriptionNotInclude = [
             [
-                "NAME" => "ТЕКСТ СПИСКА",
+                "NAME" => "ТЕКСТ СПИСКА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "TEXT",
+                "CODE" => "TEXT_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("13"),
+            ],
+            [
+                "NAME" => "ТЕКСТ СПИСКА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TEXT_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("13"),
             ],
@@ -733,10 +916,10 @@ class mode extends CModule
         //СТОИМОСТЬ ТУРА
         $propertiesPriceCard = [
             [
-                "NAME" => "НАЗВАНИЕ ТУРА",
+                "NAME" => "НАЗВАНИЕ ТУРА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NAME",
+                "CODE" => "NAME_RU",
                 "PROPERTY_TYPE" => "L",
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
                 "VALUES" => [
@@ -745,18 +928,46 @@ class mode extends CModule
                 ]
             ],
             [
-                "NAME" => "ЦЕНА ТУРА",
+                "NAME" => "НАЗВАНИЕ ТУРА EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "PRICE",
+                "CODE" => "NAME_EN",
+                "PROPERTY_TYPE" => "L",
+                "IBLOCK_ID" => $this->getIblockIdByCode("14"),
+                "VALUES" => [
+                    ["VALUE" => "group tour", "SORT" => 100, "XML_ID" => "1", "DEF" => "Y"],
+                    ["VALUE" => "private tour", "SORT" => 100, "XML_ID" => "2"],
+                ]
+            ],
+            [
+                "NAME" => "ЦЕНА ТУРА RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "PRICE_RUB",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
             ],
             [
-                "NAME" => "ЦЕНА СО СКИДКОЙ",
+                "NAME" => "ЦЕНА ТУРА USD",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "DISCOUNTED_PRICE",
+                "CODE" => "PRICE_USD",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("14"),
+            ],
+            [
+                "NAME" => "ЦЕНА СО СКИДКОЙ RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DISCOUNTED_PRICE_RUB",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("14"),
+            ],
+            [
+                "NAME" => "ЦЕНА СО СКИДКОЙ USD",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DISCOUNTED_PRICE_USD",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
             ],
@@ -770,18 +981,34 @@ class mode extends CModule
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
             ],
             [
-                "NAME" => "ПРЕДОПЛАТА",
+                "NAME" => "ПРЕДОПЛАТА RUB",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "PREPAYMENT",
+                "CODE" => "PREPAYMENT_RUB",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
             ],
             [
-                "NAME" => "ЦЕНА ЗА КАЖДОГО СЛЕДУЮЩЕГО УЧАСТНИКА",
+                "NAME" => "ПРЕДОПЛАТА USD",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "PRICE_PARTICIPANT",
+                "CODE" => "PREPAYMENT_USD",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("14"),
+            ],
+            [
+                "NAME" => "ЦЕНА ЗА КАЖДОГО СЛЕДУЮЩЕГО УЧАСТНИКА RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "PRICE_PARTICIPANT_RUB",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("14"),
+            ],
+            [
+                "NAME" => "ЦЕНА ЗА КАЖДОГО СЛЕДУЮЩЕГО УЧАСТНИКА USD",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "PRICE_PARTICIPANT_USD",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("14"),
             ],
@@ -833,10 +1060,18 @@ class mode extends CModule
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
             [
-                "NAME" => "ОПИСАНИЕ ИНСТРУКТОРА",
+                "NAME" => "ОПИСАНИЕ ИНСТРУКТОРА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "DESCRIPTION_INSTRUCTOR",
+                "CODE" => "DESCRIPTION_INSTRUCTOR_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("15"),
+            ],
+            [
+                "NAME" => "ОПИСАНИЕ ИНСТРУКТОРА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCRIPTION_INSTRUCTOR_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
@@ -849,18 +1084,34 @@ class mode extends CModule
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
             [
-                "NAME" => "СТАРАЯ ЦЕНА",
+                "NAME" => "СТАРАЯ ЦЕНА RUB",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "OlD_PRICE",
+                "CODE" => "OlD_PRICE_RUB",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
             [
-                "NAME" => "НОВАЯ ЦЕНА",
+                "NAME" => "СТАРАЯ ЦЕНА USD",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NEW_PRICE",
+                "CODE" => "OlD_PRICE_USD",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("15"),
+            ],
+            [
+                "NAME" => "НОВАЯ ЦЕНА RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NEW_PRICE_RUB",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("15"),
+            ],
+            [
+                "NAME" => "НОВАЯ ЦЕНА USD",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NEW_PRICE_USD",
                 "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
@@ -874,10 +1125,18 @@ class mode extends CModule
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
             [
-                "NAME" => "ФИО ИНСТРУКТОРА",
+                "NAME" => "ФИО ИНСТРУКТОРА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NAME_INSTRUCTOR",
+                "CODE" => "NAME_INSTRUCTOR_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("15"),
+            ],
+            [
+                "NAME" => "ФИО ИНСТРУКТОРА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NAME_INSTRUCTOR_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("15"),
             ],
@@ -891,18 +1150,35 @@ class mode extends CModule
         //ИНФОРМАЦИЯ
         $propertiesInformation = [
             [
-                "NAME" => "ЗАГОЛОВОК СПИСКА",
+                "NAME" => "ЗАГОЛОВОК СПИСКА RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "TITLE",
+                "CODE" => "TITLE_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("16"),
             ],
             [
-                "NAME" => "ТЕКСТ СПИСКА",
+                "NAME" => "ЗАГОЛОВОК СПИСКА EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "TEXT",
+                "CODE" => "TITLE_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("16"),
+            ],
+            [
+                "NAME" => "ТЕКСТ СПИСКА RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TEXT_RU",
+                "PROPERTY_TYPE" => "S",
+                "MULTIPLE" => "Y",
+                "IBLOCK_ID" => $this->getIblockIdByCode("16"),
+            ],
+            [
+                "NAME" => "ТЕКСТ СПИСКА EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TEXT_EN",
                 "PROPERTY_TYPE" => "S",
                 "MULTIPLE" => "Y",
                 "IBLOCK_ID" => $this->getIblockIdByCode("16"),
@@ -917,10 +1193,10 @@ class mode extends CModule
         //ЕЩЕ
         $propertiesMore = [
             [
-                "NAME" => "ВСЕ ВКЛЮЧЕНО",
+                "NAME" => "ВСЕ ВКЛЮЧЕНО RU",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "ALL_INCLUSIVE",
+                "CODE" => "ALL_INCLUSIVE_RU",
                 "PROPERTY_TYPE" => "L",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
                 "VALUES" => [
@@ -929,18 +1205,46 @@ class mode extends CModule
                 ]
             ],
             [
-                "NAME" => "СТРАНА",
+                "NAME" => "ВСЕ ВКЛЮЧЕНО EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "COUNTRY",
+                "CODE" => "ALL_INCLUSIVE_EN",
+                "PROPERTY_TYPE" => "L",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+                "VALUES" => [
+                    ["VALUE" => "Everything is included", "SORT" => 100, "XML_ID" => "1", "DEF" => "Y"],
+                    ["VALUE" => "Not all inclusive", "SORT" => 100, "XML_ID" => "2"],
+                ]
+            ],
+            [
+                "NAME" => "СТРАНА RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "COUNTRY_RU",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
             ],
             [
-                "NAME" => "ЗАГОЛОВОК",
+                "NAME" => "СТРАНА EN",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
-                "CODE" => "NAME",
+                "CODE" => "COUNTRY_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "ЗАГОЛОВОК RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NAME_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "ЗАГОЛОВОК EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "NAME_EN",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
             ],
@@ -949,7 +1253,7 @@ class mode extends CModule
                 "ACTIVE" => "Y",
                 "SORT" => 100,
                 "CODE" => "NUMBER_OF_DAYS",
-                "PROPERTY_TYPE" => "S",
+                "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
             ],
             [
@@ -957,7 +1261,7 @@ class mode extends CModule
                 "ACTIVE" => "Y",
                 "SORT" => 100,
                 "CODE" => "LENGHT_ROUTE",
-                "PROPERTY_TYPE" => "S",
+                "PROPERTY_TYPE" => "N",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
             ],
             [
@@ -995,60 +1299,148 @@ class mode extends CModule
                 "PROPERTY_TYPE" => "F",
                 "IBLOCK_ID" => $this->getIblockIdByCode("17"),
             ],
+            [
+                "NAME" => "НАЧАЛЬНАЯ ДАТА ЗАЕЗДА",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "START_DATE",
+                "PROPERTY_TYPE" => "S",
+                "USER_TYPE" => "Date",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "СКИДКА",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCONT",
+                "PROPERTY_TYPE" => "L",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+                "VALUES" => [
+                    ["VALUE" => "ДА", "SORT" => 100, "XML_ID" => "1", "DEF" => "Y"],
+                    ["VALUE" => "НЕТ", "SORT" => 100, "XML_ID" => "2"],
+                ]
+            ],
+            [
+                "NAME" => "ДЕЙСВИЕ СКИДКИ",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "END_DATE",
+                "PROPERTY_TYPE" => "S",
+                "USER_TYPE" => "Date",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "НАЧАЛЬНАЯ ЦЕНА RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "START_PRICE_RUB",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "НАЧАЛЬНАЯ ЦЕНА USD",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "START_PRICE_USD",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "ЦЕНА ПО СКИДКЕ RUB",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCONT_PRICE_RUB",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "ЦЕНА ПО СКИДКЕ USD",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "DESCONT_PRICE_USD",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
+            [
+                "NAME" => "КОЛИЧЕСТВО ЗАЕЗДОВ",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "PLACES",
+                "PROPERTY_TYPE" => "N",
+                "IBLOCK_ID" => $this->getIblockIdByCode("17"),
+            ],
         ];
 
         foreach ($propertiesMore as $property) {
             $iblockProperty = new CIBlockProperty;
             $iblockProperty->Add($property);
         }
-    }
 
-    public function InstallFiles()
-    {
-        $files = [
-            "top" => [
-                "source" => $_SERVER["DOCUMENT_ROOT"] . "/local/modules/mode/install/.top.menu.php",
-                "destination" => $_SERVER["DOCUMENT_ROOT"] . "/.top.menu.php"
+        //FOOTER
+        $propertiesFooter = [
+            [
+                "NAME" => "адрес RU",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TITLE_RU",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("18"),
             ],
-            "bottom" => [
-                "source" => $_SERVER["DOCUMENT_ROOT"] . "/local/modules/mode/install/.bottom.menu.php",
-                "destination" => $_SERVER["DOCUMENT_ROOT"] . "/.bottom.menu.php"
-            ]
+            [
+                "NAME" => "адрес EN",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "TITLE_EN",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("18"),
+            ],
+            [
+                "NAME" => "Картинка платежной системы",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "IMAGE",
+                "PROPERTY_TYPE" => "F",
+                "IBLOCK_ID" => $this->getIblockIdByCode("19"),
+            ],
+            [
+                "NAME" => "Ссылка на социальную сеть",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "LINK",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("20"),
+            ],
+            [
+                "NAME" => "Картинка платежной системы",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "IMAGE",
+                "PROPERTY_TYPE" => "F",
+                "IBLOCK_ID" => $this->getIblockIdByCode("20"),
+            ],
+            [
+                "NAME" => "Картинка метрики",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "IMAGE",
+                "PROPERTY_TYPE" => "F",
+                "IBLOCK_ID" => $this->getIblockIdByCode("21"),
+            ],
+            [
+                "NAME" => "URL аналитики",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "IMAGE",
+                "PROPERTY_TYPE" => "S",
+                "IBLOCK_ID" => $this->getIblockIdByCode("21"),
+            ],
         ];
 
-        foreach ($files as $name => $paths) {
-            if (file_exists($paths["source"])) {
-                if (copy($paths["source"], $paths["destination"])) {
-                    echo "✅ Файл '{$name}' успешно скопирован в {$paths["destination"]} <br>";
-                } else {
-                    echo "❌ Ошибка при копировании файла '{$name}' в {$paths["destination"]} <br>";
-                }
-            } else {
-                echo "⚠ Файл '{$name}' отсутствует: {$paths["source"]} <br>";
-            }
+        foreach ($propertiesFooter as $property) {
+            $iblockProperty = new CIBlockProperty;
+            $iblockProperty->Add($property);
         }
     }
-
-    public function UnInstallFiles()
-    {
-        $files = [
-            "top" => $_SERVER["DOCUMENT_ROOT"] . "/.top.menu.php",
-            "bottom" => $_SERVER["DOCUMENT_ROOT"] . "/.bottom.menu.php"
-        ];
-
-        foreach ($files as $name => $path) {
-            if (file_exists($path)) {
-                if (unlink($path)) {
-                    echo "✅ Файл '{$name}' удален: {$path} <br>";
-                } else {
-                    echo "❌ Ошибка при удалении файла '{$name}': {$path} <br>";
-                }
-            } else {
-                echo "⚠ Файл '{$name}' не найден для удаления: {$path} <br>";
-            }
-        }
-    }
-
 }
 
 

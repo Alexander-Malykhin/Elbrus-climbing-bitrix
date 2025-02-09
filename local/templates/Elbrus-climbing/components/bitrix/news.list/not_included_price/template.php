@@ -1,14 +1,15 @@
 <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arResult */
 $this->setFrameMode(true);
+IncludeModuleLangFile(__FILE__);
 ?>
 
 <?php if (!empty($arResult)): ?>
     <div class="price__lists-column">
         <div class="price__lists-top">
             <div class="price__lists-header">
-                <img alt="image" src="<?= $this->getFolder(); ?>/images//close.png">
-                <h3 class="price__lists-title">В стоимость не включено</h3>
+                <img alt="image" src="<?= $this->getFolder(); ?>/images/close.png">
+                <h3 class="price__lists-title"><?= GetMessage("NOT_INCLUDED_TITLE") ?></h3>
             </div>
             <button class="price__lists-button">
                 <img alt="angle-down" src="<?= $this->getFolder(); ?>/images/angle-down.png">
@@ -18,7 +19,7 @@ $this->setFrameMode(true);
             <?php foreach ($arResult["ITEMS"] as $arItem): ?>
                 <li class="price__lists-last">
                     <p class="price__lists-text">
-                        <?= $arItem["PROPERTIES"]["TEXT"]["VALUE"] ?>
+                        <?= $arItem["PROPERTIES"]["TEXT_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
                     </p>
                 </li>
             <?php endforeach; ?>

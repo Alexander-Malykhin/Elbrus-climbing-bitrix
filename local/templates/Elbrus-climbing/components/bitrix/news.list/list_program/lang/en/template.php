@@ -1,3 +1,5 @@
-<?
-$MESS["CT_BNL_ELEMENT_DELETE_CONFIRM"] = "All the information linked to this record will be deleted. Continue anyway?";
-?>
+<?php
+$MESS["DIFFICULTY_LEVEL"] = "Difficulty level";
+$MESS["ACCOMMODATION"] = "Accommodation";
+$MESS["NUTRITION"] = "Nutrition";
+$MESS["BUTTON_PHOTO"] = "View photos";

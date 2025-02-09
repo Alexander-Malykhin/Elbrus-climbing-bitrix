@@ -232,6 +232,7 @@
       &-top {
         grid-template-columns: max-content 1fr 313px 48px max-content;
       }
+
       &-bottom {
         grid-template-columns: minmax(300px, 370px)  max-content;
       }
@@ -273,7 +274,7 @@
       &-list {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(4,max-content);
+        grid-template-columns: repeat(4, max-content);
         justify-content: space-between;
       }
 
@@ -427,6 +428,7 @@
       }
 
       &-video {
+        width: 100%;
         object-fit: cover;
         max-width: 100%;
         position: relative;

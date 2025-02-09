@@ -1,3 +1,5 @@
-<?
-$MESS["CT_BNL_ELEMENT_DELETE_CONFIRM"] = "Будет удалена вся информация, связанная с этой записью. Продолжить?";
-?>
+<?php
+$MESS["DIFFICULTY_LEVEL"] = "Уровень сложности";
+$MESS["ACCOMMODATION"] = "Проживание";
+$MESS["NUTRITION"] = "Питание";
+$MESS["BUTTON_PHOTO"] = "Смотреть фото";

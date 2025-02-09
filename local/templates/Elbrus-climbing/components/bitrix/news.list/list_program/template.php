@@ -1,6 +1,7 @@
 <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arResult */
 $this->setFrameMode(true);
+IncludeModuleLangFile(__FILE__);
 ?>
 
 <?php foreach ($arResult["ITEMS"] as $arItem): ?>
@@ -22,11 +23,11 @@ $this->setFrameMode(true);
                 <ul class="program__conditions-level">
                     <li class="program__conditions-column active__column-primary"></li>
                     <li class="program__conditions-column active__column-primary"></li>
-                    <li class="program__conditions-column active__column-primary""></li>
+                    <li class="program__conditions-column active__column-primary"></li>
                 </ul>
             <?php endif; ?>
             <h3 class="program__conditions-title">
-                Уровень сложности
+                <?= GetMessage("DIFFICULTY_LEVEL") ?>
             </h3>
 
             <p class="program__conditions-text">
@@ -39,32 +40,32 @@ $this->setFrameMode(true);
         </article>
         <article class="program__conditions-item">
             <div class="program__conditions-image">
-                <img alt="hotel" src="<?=SITE_TEMPLATE_PATH?>/images/hotel.png">
+                <img alt="hotel" src="<?= SITE_TEMPLATE_PATH ?>/images/hotel.png">
             </div>
 
             <h3 class="program__conditions-title">
-                Проживание
+                <?= GetMessage("DIFFICULTY_LEVEL") ?>
             </h3>
 
             <p class="program__conditions-text">
-                <?=$arItem["PROPERTIES"]["ACCOMMODATION"]["VALUE"]?>
+                <?= $arItem["PROPERTIES"]["ACCOMMODATION_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
             </p>
 
             <button class="program__conditions-button">
-                Смотреть фото
+                <?= GetMessage("BUTTON_PHOTO") ?>
             </button>
         </article>
         <article class="program__conditions-item">
             <div class="program__conditions-image">
-                <img alt="nutrition" src="<?=SITE_TEMPLATE_PATH?>/images/nutrition.png">
+                <img alt="nutrition" src="<?= SITE_TEMPLATE_PATH ?>/images/nutrition.png">
             </div>
 
             <h3 class="program__conditions-title">
-                Питание
+                <?= GetMessage("NUTRITION") ?>
             </h3>
 
             <p class="program__conditions-text">
-                <?=$arItem["PROPERTIES"]["NUTRITION"]["VALUE"]?>
+                <?= $arItem["PROPERTIES"]["NUTRITION_" . strtoupper(LANGUAGE_ID)]["VALUE"] ?>
             </p>
         </article>
     </div>
