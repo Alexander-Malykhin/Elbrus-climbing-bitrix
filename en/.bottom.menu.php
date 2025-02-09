@@ -1,0 +1,46 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Описание", 
+		"#schedule", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Фото", 
+		"#gallery", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Программа", 
+		"#program", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Стоимость", 
+		"#price", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Заезды", 
+		"#choice", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Информация", 
+		"#information", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

@@ -1,0 +1,2 @@
+<?php
+$MESS["DAY"] = "day";
